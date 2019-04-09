@@ -1,24 +1,28 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+A simple example showing a Rails app using the `wicked_pdf` gem and `wkhtmltopdf` library running on the heroku-18 stack.
 
-Things you may want to cover:
+1. Add `wicked_pdf` to the Gemfile:
+gem 'wicked_pdf', '~> 1.2', '>= 1.2.2'
 
-* Ruby version
+2. Run `$ bundle install`
 
-* System dependencies
+3. Run `rails generate wicked_pdf`
 
-* Configuration
+4. Create a simple PDF endpoint:
+```
+class PdfController < ApplicationController
+  def index
+    url = params[:url].present? ? params[:url] : 'https://www.heroku.com'
+    pdf = WickedPdf.new.pdf_from_url(url)
+    send_data pdf, filename: "#{url.parameterize}-#{Time.now.to_i}.pdf"
+  end
+end
+```
 
-* Database creation
+5. Add the `wkhtmltopdf` buildpack:
+```
+$ heroku buildpacks:add https://github.com/chap/wkhtmltopdf-heroku-18-buildpack --index 1
+```
 
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+6. Deploy to Heroku
