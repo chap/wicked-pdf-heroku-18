@@ -34,7 +34,6 @@ gem 'jbuilder', '~> 2.5'
 # gem 'capistrano-rails', group: :development
 
 gem 'wicked_pdf', '~> 1.2', '>= 1.2.2'
-gem 'wkhtmltopdf-heroku'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
